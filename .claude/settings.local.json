@@ -12,7 +12,10 @@
       "Bash(pkill -f \"vite\")",
       "Bash(python3 *)",
       "Bash(node *)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(pkill -9 -f \"vite\")",
+      "Bash(disown)",
+      "Bash(echo \"EXIT:$?\")"
     ]
   }
 }

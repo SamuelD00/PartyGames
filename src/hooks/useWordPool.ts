@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const STORAGE_KEY = 'impostor:wordpool';
-
 export interface WordEntry {
   word: string;
   hint: string | null;
 }
 
-function loadEntries(): WordEntry[] {
+function loadEntries(storageKey: string): WordEntry[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(storageKey);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -27,12 +25,12 @@ function loadEntries(): WordEntry[] {
   }
 }
 
-export function useWordPool() {
-  const [entries, setEntries] = useState<WordEntry[]>(() => loadEntries());
+export function useWordPoolStorage(storageKey: string) {
+  const [entries, setEntries] = useState<WordEntry[]>(() => loadEntries(storageKey));
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-  }, [entries]);
+    localStorage.setItem(storageKey, JSON.stringify(entries));
+  }, [storageKey, entries]);
 
   const addWord = useCallback((word: string, hint?: string) => {
     const trimmedWord = word.trim();
@@ -50,4 +48,8 @@ export function useWordPool() {
   }, []);
 
   return { words: entries, addWord, removeWord };
+}
+
+export function useWordPool() {
+  return useWordPoolStorage('impostor:wordpool');
 }

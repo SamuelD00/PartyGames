@@ -10,6 +10,7 @@ type Dict = Record<string, string>;
 const es: Dict = {
   'games.impostor': 'Impostor',
   'games.mob': 'Mafia',
+  'games.mimic': 'Mímica',
 
   'gameSelector.subtitle': 'Elige un juego',
   'gameSelector.current': 'Jugando ahora',
@@ -188,13 +189,50 @@ const es: Dict = {
   'godRoulette.progress': 'Eligiendo a Dios…',
   'godRoulette.badge': 'DIOS',
   'godRoulette.result': '{{name}} es Dios.',
+  'godRoulette.spinAgain': 'Girar de nuevo',
+
+  'mimic.tagline': 'Un jugador actúa una palabra sin hablar. Los demás deben adivinarla.',
+  'mimic.roundLabel': 'Ronda {{n}}',
+  'mimic.badge': 'TU PALABRA',
+  'mimic.title': 'Actúala sin hablar',
+  'mimic.faceDownLabel': 'Importante',
+  'mimic.faceDownNote': 'Da vuelta el teléfono boca abajo antes de empezar a actuar, para que nadie más vea la palabra.',
+  'mimic.startActing': 'Listo, empezar a actuar',
+  'mimic.endGame': 'Terminar partida',
+
+  'mimicSetup.timerTitle': 'Tiempo para actuar',
+  'mimicSetup.roundsTitle': 'Cantidad de rondas',
+  'mimicSetup.roundsDescription': 'La partida termina automáticamente después de esta cantidad de rondas.',
+  'mimicSetup.fewerRounds': 'Menos rondas',
+  'mimicSetup.moreRounds': 'Más rondas',
+
+  'mimicRoulette.progress': 'Ronda {{n}} — Eligiendo quién actúa…',
+  'mimicRoulette.badge': 'ACTÚA',
+  'mimicRoulette.result': '{{name}} actúa esta ronda.',
+
+  'mimicActing.subtitle': '{{name}} está actuando la palabra. ¡Griten sus respuestas!',
+  'mimicActing.finish': 'Alguien ya adivinó',
+
+  'mimicGuess.subtitle': '{{name}} elige quién adivinó primero.',
+  'mimicGuess.noOne': 'Nadie adivinó',
+
+  'mimicResults.scoresTitle': 'Puntuación',
+  'mimicResults.winner': '¡{{name}} gana la partida!',
+  'mimicResults.tie': 'Empate entre {{names}}',
+  'mimicResults.noWinner': 'Nadie sumó puntos todavía',
+  'mimicResults.points.one': '{{n}} punto',
+  'mimicResults.points.other': '{{n}} puntos',
 
   'language.label': 'Idioma',
+
+  'theme.switchToDark': 'Cambiar a modo oscuro',
+  'theme.switchToLight': 'Cambiar a modo claro',
 };
 
 const en: Dict = {
   'games.impostor': 'Impostor',
   'games.mob': 'The Mob',
+  'games.mimic': 'Mimic',
 
   'gameSelector.subtitle': 'Choose a game',
   'gameSelector.current': 'Currently playing',
@@ -373,8 +411,44 @@ const en: Dict = {
   'godRoulette.progress': 'Choosing God…',
   'godRoulette.badge': 'GOD',
   'godRoulette.result': '{{name}} is God.',
+  'godRoulette.spinAgain': 'Spin again',
+
+  'mimic.tagline': 'One player acts out a word without speaking. Everyone else has to guess it.',
+  'mimic.roundLabel': 'Round {{n}}',
+  'mimic.badge': 'YOUR WORD',
+  'mimic.title': 'Act it out without speaking',
+  'mimic.faceDownLabel': 'Important',
+  'mimic.faceDownNote': 'Turn the phone face down before you start acting, so no one else sees the word.',
+  'mimic.startActing': 'Ready, start acting',
+  'mimic.endGame': 'End game',
+
+  'mimicSetup.timerTitle': 'Acting timer',
+  'mimicSetup.roundsTitle': 'Number of rounds',
+  'mimicSetup.roundsDescription': 'The game ends automatically after this many rounds.',
+  'mimicSetup.fewerRounds': 'Fewer rounds',
+  'mimicSetup.moreRounds': 'More rounds',
+
+  'mimicRoulette.progress': 'Round {{n}} — Picking who acts…',
+  'mimicRoulette.badge': 'ACTS',
+  'mimicRoulette.result': '{{name}} acts this round.',
+
+  'mimicActing.subtitle': '{{name}} is acting out the word. Shout your guesses!',
+  'mimicActing.finish': 'Someone already guessed',
+
+  'mimicGuess.subtitle': '{{name}} picks who guessed first.',
+  'mimicGuess.noOne': 'No one guessed',
+
+  'mimicResults.scoresTitle': 'Scores',
+  'mimicResults.winner': '{{name}} wins the game!',
+  'mimicResults.tie': 'Tie between {{names}}',
+  'mimicResults.noWinner': 'No one scored yet',
+  'mimicResults.points.one': '{{n}} point',
+  'mimicResults.points.other': '{{n}} points',
 
   'language.label': 'Language',
+
+  'theme.switchToDark': 'Switch to dark mode',
+  'theme.switchToLight': 'Switch to light mode',
 };
 
 export const dictionaries: Record<Lang, Dict> = { es, en };

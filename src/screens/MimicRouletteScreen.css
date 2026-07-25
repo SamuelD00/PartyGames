@@ -1,0 +1,15 @@
+.mimic-roulette-card {
+  gap: 22px;
+  padding: clamp(32px, 10vw, 56px) clamp(18px, 6vw, 28px);
+}
+
+.mimic-roulette-icon {
+  color: var(--accent);
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+}
+
+.mimic-roulette-badge {
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}

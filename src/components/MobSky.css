@@ -1,0 +1,75 @@
+.mob-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: background 0.9s ease;
+}
+
+.mob-sky--day {
+  background: linear-gradient(180deg, #bfe0ff 0%, #dcefff 35%, #fdf1da 75%, #fbe7c6 100%);
+}
+
+:root[data-theme='dark'] .mob-sky--day {
+  background: linear-gradient(180deg, #333a4d 0%, #3f4558 35%, #4d4b58 68%, #5c5148 100%);
+}
+
+.mob-sky--night {
+  background: linear-gradient(180deg, #0a0e27 0%, #10163a 50%, #1b2452 100%);
+}
+
+.mob-celestial {
+  position: absolute;
+  top: clamp(36px, 11vh, 84px);
+  right: clamp(18px, 9vw, 56px);
+}
+
+.mob-sun {
+  color: #ffc738;
+  filter: drop-shadow(0 0 60px rgba(255, 199, 56, 0.85)) drop-shadow(0 0 24px rgba(255, 226, 140, 0.9));
+}
+
+:root[data-theme='dark'] .mob-sun {
+  color: #f0c988;
+  filter: drop-shadow(0 0 36px rgba(240, 201, 136, 0.5));
+}
+
+.mob-moon {
+  color: #eef0fa;
+  filter: drop-shadow(0 0 32px rgba(238, 240, 250, 0.4));
+}
+
+.mob-cloud {
+  position: absolute;
+  color: #fff;
+  filter: blur(2px);
+  animation: mob-cloud-drift ease-in-out infinite alternate;
+}
+
+@keyframes mob-cloud-drift {
+  from {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
+
+.mob-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 22%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 62% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 38% 45%, #fff, transparent),
+    radial-gradient(1px 1px at 82% 32%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 8% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 52% 68%, #fff, transparent),
+    radial-gradient(1px 1px at 72% 55%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 28% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 92% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 28%, #fff, transparent);
+}

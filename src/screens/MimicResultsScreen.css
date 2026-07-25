@@ -1,0 +1,16 @@
+.winner-banner.mimic-won {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.4), 0 0 40px -12px rgba(139, 92, 246, 0.45), var(--shadow-lg);
+}
+
+.mimic-won .winner-label {
+  color: var(--accent);
+}
+
+.roster-row.is-leader {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.roster-row.is-leader .mimic-score-tag {
+  color: var(--accent);
+}

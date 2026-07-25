@@ -1,15 +1,17 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import type { MobSetupPlayer } from '../types/mob';
+import type { MimicPlayer } from '../types/mimic';
 import { useLanguage } from '../i18n/LanguageContext';
-import { IconHalo } from '../components/icons';
-import { pickRandom, shuffle } from '../utils/shuffle';
-import '../screens/RevealScreen.css';
+import { IconMimic } from '../components/icons';
+import { shuffle } from '../utils/shuffle';
+import './RevealScreen.css';
 import './GodRouletteScreen.css';
+import './MimicRouletteScreen.css';
 
-interface GodRouletteScreenProps {
-  players: MobSetupPlayer[];
+interface MimicRouletteScreenProps {
+  players: MimicPlayer[];
   resultId: string;
-  onDone: (godId: string) => void;
+  round: number;
+  onDone: () => void;
 }
 
 const CARD_WIDTH = 128;
@@ -19,13 +21,12 @@ const MIN_REEL_ITEMS = 80;
 const TRAILING_BUFFER = 6;
 const OVERSHOOT_PX = 18;
 const SPIN_DURATION_MS = 8000;
-const RESPIN_DURATION_MS = 6500;
 
 type Phase = 'idle' | 'spin' | 'settle' | 'done';
 
-function buildReel(players: MobSetupPlayer[], winner: MobSetupPlayer): { reel: MobSetupPlayer[]; winningIndex: number } {
+function buildReel(players: MimicPlayer[], winner: MimicPlayer): { reel: MimicPlayer[]; winningIndex: number } {
   const repeats = Math.max(6, Math.ceil(MIN_REEL_ITEMS / players.length));
-  const items: MobSetupPlayer[] = [];
+  const items: MimicPlayer[] = [];
   for (let i = 0; i < repeats; i++) items.push(...shuffle(players));
   const targetIndex = items.length - TRAILING_BUFFER - Math.floor(Math.random() * 3);
   items[targetIndex] = winner;
@@ -33,13 +34,12 @@ function buildReel(players: MobSetupPlayer[], winner: MobSetupPlayer): { reel: M
 }
 
 interface RouletteReelProps {
-  players: MobSetupPlayer[];
-  winner: MobSetupPlayer;
-  durationMs: number;
+  players: MimicPlayer[];
+  winner: MimicPlayer;
   onLanded: () => void;
 }
 
-function RouletteReel({ players, winner, durationMs, onLanded }: RouletteReelProps) {
+function RouletteReel({ players, winner, onLanded }: RouletteReelProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const targetOffsetRef = useRef(0);
   const pendingFramesRef = useRef<number[]>([]);
@@ -85,13 +85,13 @@ function RouletteReel({ players, winner, durationMs, onLanded }: RouletteReelPro
         className={`roulette-track phase-${phase}`}
         style={{
           transform: `translateX(${-offset}px)`,
-          transitionDuration: phase === 'spin' ? `${durationMs}ms` : undefined,
+          transitionDuration: phase === 'spin' ? `${SPIN_DURATION_MS}ms` : undefined,
         }}
         onTransitionEnd={handleTransitionEnd}
       >
         {reel.map((p, i) => (
           <div key={i} className={`roulette-card${i === winningIndex && landed ? ' winner' : ''}`}>
-            <IconHalo size={26} className="roulette-card-icon" />
+            <IconMimic size={26} className="roulette-card-icon" />
             <span className="roulette-card-name">{p.name}</span>
           </div>
         ))}
@@ -100,47 +100,29 @@ function RouletteReel({ players, winner, durationMs, onLanded }: RouletteReelPro
   );
 }
 
-export function GodRouletteScreen({ players, resultId, onDone }: GodRouletteScreenProps) {
+export function MimicRouletteScreen({ players, resultId, round, onDone }: MimicRouletteScreenProps) {
   const { t } = useLanguage();
-  const [winner, setWinner] = useState<MobSetupPlayer>(() => players.find((p) => p.id === resultId) ?? players[0]);
-  const [spinCount, setSpinCount] = useState(0);
+  const [winner] = useState<MimicPlayer>(() => players.find((p) => p.id === resultId) ?? players[0]);
   const [landed, setLanded] = useState(false);
-
-  const handleSpinAgain = () => {
-    setWinner(pickRandom(players));
-    setSpinCount((n) => n + 1);
-    setLanded(false);
-  };
 
   return (
     <div className="screen reveal-screen roulette-screen">
-      <p className="reveal-progress">{t('godRoulette.progress')}</p>
+      <p className="reveal-progress">{t('mimicRoulette.progress', { n: round })}</p>
 
-      <RouletteReel
-        key={spinCount}
-        players={players}
-        winner={winner}
-        durationMs={spinCount === 0 ? SPIN_DURATION_MS : RESPIN_DURATION_MS}
-        onLanded={() => setLanded(true)}
-      />
+      <RouletteReel players={players} winner={winner} onLanded={() => setLanded(true)} />
 
       {landed && (
-        <div className="reveal-card card god-roulette-card">
-          <IconHalo size={40} className="god-roulette-icon" />
-          <span className="reveal-badge god-badge">{t('godRoulette.badge')}</span>
-          <h2>{t('godRoulette.result', { name: winner.name })}</h2>
+        <div className="reveal-card card mimic-roulette-card">
+          <IconMimic size={40} className="mimic-roulette-icon" />
+          <span className="reveal-badge mimic-roulette-badge">{t('mimicRoulette.badge')}</span>
+          <h2>{t('mimicRoulette.result', { name: winner.name })}</h2>
         </div>
       )}
 
       {landed && (
-        <div className="roulette-actions">
-          <button type="button" className="btn-secondary next-btn" onClick={handleSpinAgain}>
-            {t('godRoulette.spinAgain')}
-          </button>
-          <button type="button" className="btn-primary next-btn" onClick={() => onDone(winner.id)}>
-            {t('discussion.continue')}
-          </button>
-        </div>
+        <button type="button" className="btn-primary next-btn" onClick={onDone}>
+          {t('discussion.continue')}
+        </button>
       )}
     </div>
   );

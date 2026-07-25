@@ -1,6 +1,6 @@
 import { useReducer, useState } from 'react';
 import { mobReducer, initialMobGameState } from './state/mobReducer';
-import type { MobGameSetup } from './types/mob';
+import type { MobGamePhase, MobGameSetup } from './types/mob';
 import type { GameDescriptor } from './data/games';
 import { MobSetupScreen } from './screens/MobSetupScreen';
 import { GodRouletteScreen } from './screens/GodRouletteScreen';
@@ -9,8 +9,10 @@ import { MobNightScreen } from './screens/MobNightScreen';
 import { MobNightResultScreen } from './screens/MobNightResultScreen';
 import { MobDiscussionScreen } from './screens/MobDiscussionScreen';
 import { MobResultsScreen } from './screens/MobResultsScreen';
+import { MobSky } from './components/MobSky';
 import { useLanguage } from './i18n/LanguageContext';
 import { pickRandom } from './utils/shuffle';
+import './MobApp.css';
 
 const MIN_TOTAL_PLAYERS = 4;
 
@@ -27,6 +29,12 @@ interface MobAppProps {
   games: GameDescriptor[];
   activeGameId: string;
   onSwitchGame: (id: string) => void;
+}
+
+function getSkyMode(phase: MobGamePhase): 'day' | 'night' | null {
+  if (phase === 'night') return 'night';
+  if (phase === 'nightResult' || phase === 'discussion') return 'day';
+  return null;
 }
 
 export function MobApp({ games, activeGameId, onSwitchGame }: MobAppProps) {
@@ -61,90 +69,94 @@ export function MobApp({ games, activeGameId, onSwitchGame }: MobAppProps) {
     setPendingGodRoll({ godId: pickRandom(setup.players).id });
   };
 
+  const skyMode = getSkyMode(game.phase);
+
   return (
-    <>
-      {game.phase === 'setup' && !pendingGodRoll && (
-        <MobSetupScreen
-          setup={setup}
-          onChange={(next) => {
-            setSetup(next);
-            setError(null);
-          }}
-          onStart={startGame}
-          error={error}
-          games={games}
-          activeGameId={activeGameId}
-          onSwitchGame={onSwitchGame}
-        />
-      )}
+    <div className="mob-app">
+      {skyMode && <MobSky mode={skyMode} />}
+      <div className="mob-app-content">
+        {game.phase === 'setup' && !pendingGodRoll && (
+          <MobSetupScreen
+            setup={setup}
+            onChange={(next) => {
+              setSetup(next);
+              setError(null);
+            }}
+            onStart={startGame}
+            error={error}
+            games={games}
+            activeGameId={activeGameId}
+            onSwitchGame={onSwitchGame}
+          />
+        )}
 
-      {game.phase === 'setup' && pendingGodRoll && (
-        <GodRouletteScreen
-          players={setup.players}
-          resultId={pendingGodRoll.godId}
-          onDone={() => {
-            const godId = pendingGodRoll.godId;
-            setPendingGodRoll(null);
-            launchGame(godId);
-          }}
-        />
-      )}
+        {game.phase === 'setup' && pendingGodRoll && (
+          <GodRouletteScreen
+            players={setup.players}
+            resultId={pendingGodRoll.godId}
+            onDone={(godId) => {
+              setPendingGodRoll(null);
+              launchGame(godId);
+            }}
+          />
+        )}
 
-      {game.phase === 'reveal' && (
-        <MobRevealScreen
-          players={game.players}
-          revealOrder={game.revealOrder}
-          revealIndex={game.revealIndex}
-          godName={game.godName}
-          onNext={() => dispatch({ type: 'NEXT_REVEAL' })}
-        />
-      )}
+        {game.phase === 'reveal' && (
+          <MobRevealScreen
+            players={game.players}
+            revealOrder={game.revealOrder}
+            revealIndex={game.revealIndex}
+            godName={game.godName}
+            onNext={() => dispatch({ type: 'NEXT_REVEAL' })}
+          />
+        )}
 
-      {game.phase === 'night' && (
-        <MobNightScreen
-          players={game.players}
-          nightStep={game.nightStep}
-          round={game.round}
-          onSubmitMob={(targetId) => dispatch({ type: 'NIGHT_SUBMIT_MOB', targetId })}
-          onSubmitDoctor={(targetId) => dispatch({ type: 'NIGHT_SUBMIT_DOCTOR', targetId })}
-          onDetectiveDone={() => dispatch({ type: 'NIGHT_STEP_DETECTIVE_DONE' })}
-        />
-      )}
+        {game.phase === 'night' && (
+          <MobNightScreen
+            players={game.players}
+            nightStep={game.nightStep}
+            round={game.round}
+            onSubmitMob={(targetId) => dispatch({ type: 'NIGHT_SUBMIT_MOB', targetId })}
+            onSubmitDoctor={(targetId) => dispatch({ type: 'NIGHT_SUBMIT_DOCTOR', targetId })}
+            onDetectiveDone={() => dispatch({ type: 'NIGHT_STEP_DETECTIVE_DONE' })}
+          />
+        )}
 
-      {game.phase === 'nightResult' && (
-        <MobNightResultScreen
-          round={game.round}
-          death={game.lastNightDeath}
-          onContinue={() => dispatch({ type: 'NIGHT_RESULT_CONTINUE' })}
-        />
-      )}
+        {game.phase === 'nightResult' && (
+          <MobNightResultScreen
+            round={game.round}
+            death={game.lastNightDeath}
+            onContinue={() => dispatch({ type: 'NIGHT_RESULT_CONTINUE' })}
+          />
+        )}
 
-      {game.phase === 'discussion' && (
-        <MobDiscussionScreen
-          players={game.players}
-          round={game.round}
-          timerSeconds={game.settings.timerSeconds}
-          timerRemaining={game.timerRemaining}
-          timerRunning={game.timerRunning}
-          lastDayElimination={game.lastDayElimination}
-          onTick={() => dispatch({ type: 'TICK' })}
-          onToggleTimer={() => dispatch({ type: 'TOGGLE_TIMER' })}
-          onPauseTimer={() => dispatch({ type: 'PAUSE_TIMER' })}
-          onVote={(playerId) => dispatch({ type: 'DAY_VOTE', playerId })}
-          onSkipVote={() => dispatch({ type: 'DAY_SKIP_VOTE' })}
-          onDayResultContinue={() => dispatch({ type: 'DAY_RESULT_CONTINUE' })}
-        />
-      )}
+        {game.phase === 'discussion' && (
+          <MobDiscussionScreen
+            players={game.players}
+            round={game.round}
+            timerSeconds={game.settings.timerSeconds}
+            timerRemaining={game.timerRemaining}
+            timerRunning={game.timerRunning}
+            lastDayElimination={game.lastDayElimination}
+            onTick={() => dispatch({ type: 'TICK' })}
+            onToggleTimer={() => dispatch({ type: 'TOGGLE_TIMER' })}
+            onPauseTimer={() => dispatch({ type: 'PAUSE_TIMER' })}
+            onVote={(playerId) => dispatch({ type: 'DAY_VOTE', playerId })}
+            onSkipVote={() => dispatch({ type: 'DAY_SKIP_VOTE' })}
+            onDayResultContinue={() => dispatch({ type: 'DAY_RESULT_CONTINUE' })}
+          />
+        )}
 
-      {game.phase === 'results' && (
-        <MobResultsScreen
-          players={game.players}
-          godName={game.godName}
-          winner={game.winner}
-          onPlayAgain={startGame}
-          onNewGame={() => dispatch({ type: 'RESET_TO_SETUP' })}
-        />
-      )}
-    </>
+        {game.phase === 'results' && (
+          <MobResultsScreen
+            players={game.players}
+            godName={game.godName}
+            winner={game.winner}
+            onPlayAgain={startGame}
+            onNewGame={() => dispatch({ type: 'RESET_TO_SETUP' })}
+          />
+        )}
+      </div>
+    </div>
   );
 }

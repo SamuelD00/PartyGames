@@ -8,9 +8,10 @@ interface WordPoolManagerProps {
   words: WordEntry[];
   onAdd: (word: string, hint?: string) => void;
   onRemove: (word: string) => void;
+  hintEnabled?: boolean;
 }
 
-export function WordPoolManager({ words, onAdd, onRemove }: WordPoolManagerProps) {
+export function WordPoolManager({ words, onAdd, onRemove, hintEnabled = true }: WordPoolManagerProps) {
   const [wordInput, setWordInput] = useState('');
   const [hintInput, setHintInput] = useState('');
   const [revealed, setRevealed] = useState(false);
@@ -42,15 +43,17 @@ export function WordPoolManager({ words, onAdd, onRemove }: WordPoolManagerProps
           {t('setup.add')}
         </button>
       </div>
-      <input
-        type="text"
-        className="pool-hint-input"
-        value={hintInput}
-        onChange={(e) => setHintInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={t('pool.hintPlaceholder')}
-        maxLength={60}
-      />
+      {hintEnabled && (
+        <input
+          type="text"
+          className="pool-hint-input"
+          value={hintInput}
+          onChange={(e) => setHintInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={t('pool.hintPlaceholder')}
+          maxLength={60}
+        />
+      )}
 
       <div className="pool-status-row">
         <span className="pool-count">{tp('pool.count', words.length)}</span>
@@ -72,7 +75,7 @@ export function WordPoolManager({ words, onAdd, onRemove }: WordPoolManagerProps
             <li key={entry.word} className="pool-word-chip">
               <span className="pool-word-text">
                 {entry.word}
-                {entry.hint && <span className="pool-word-hint"> · {entry.hint}</span>}
+                {hintEnabled && entry.hint && <span className="pool-word-hint"> · {entry.hint}</span>}
               </span>
               <button
                 type="button"

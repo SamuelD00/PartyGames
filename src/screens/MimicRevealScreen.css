@@ -1,0 +1,18 @@
+.mimic-facedown-box {
+  border-color: var(--safe-border);
+  background: var(--safe-bg);
+}
+
+.mimic-end-link {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  text-decoration: underline;
+  padding: 8px;
+  margin-top: 2px;
+}
+
+.mimic-end-link:hover {
+  color: var(--text-dim);
+}

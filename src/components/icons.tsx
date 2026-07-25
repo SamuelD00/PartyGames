@@ -83,6 +83,44 @@ export function IconHalo({ size = 16, className }: IconProps) {
   );
 }
 
+export function IconSun({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} {...base}>
+      <circle cx="12" cy="12" r="5" fill="currentColor" stroke="none" />
+      <path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+    </svg>
+  );
+}
+
+export function IconMoon({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="currentColor" stroke="none">
+      <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" />
+    </svg>
+  );
+}
+
+export function IconCloud({ size = 64, className, style }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} style={style} fill="currentColor" stroke="none">
+      <path d="M17.5 19H8a6 6 0 1 1 5.9-7h1.6a4.5 4.5 0 1 1 2 8.5Z" />
+    </svg>
+  );
+}
+
+export function IconMimic({ size = 44, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} {...base}>
+      <circle cx="12" cy="4.5" r="2.5" />
+      <path d="M12 7v6.5" />
+      <path d="M12 9.5L6.5 7" />
+      <path d="M12 9.5l5.5-2.5" />
+      <path d="M12 13.5l-4.5 6.5" />
+      <path d="M12 13.5l4.5 6.5" />
+    </svg>
+  );
+}
+
 export function IconDisguise({ size = 44, className }: IconProps) {
   return (
     <svg width={size} height={size * (26 / 40)} viewBox="0 0 40 26" className={className} {...base}>
