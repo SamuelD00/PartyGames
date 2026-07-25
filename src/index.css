@@ -333,8 +333,8 @@ textarea {
   max-width: 560px;
   margin: 0 auto;
   /* Cleared below the theme toggle (top-left) and language toggle (top-right)
-     corner controls (14px offset + 38px tall) so it never overlaps header text. */
-  padding-top: calc(60px + env(safe-area-inset-top));
+     corner controls (10px offset + 34px tall) so it never overlaps header text. */
+  padding-top: calc(48px + env(safe-area-inset-top));
   padding-left: clamp(16px, 5vw, 20px);
   padding-right: clamp(16px, 5vw, 20px);
   padding-bottom: calc(clamp(28px, 8vw, 40px) + env(safe-area-inset-bottom));

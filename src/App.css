@@ -1,7 +1,7 @@
 .top-controls {
   position: absolute;
-  top: calc(14px + env(safe-area-inset-top));
-  right: calc(14px + env(safe-area-inset-right));
+  top: calc(10px + env(safe-area-inset-top));
+  right: calc(10px + env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -11,7 +11,7 @@
 
 .top-controls-left {
   position: absolute;
-  top: calc(14px + env(safe-area-inset-top));
-  left: calc(14px + env(safe-area-inset-left));
+  top: calc(10px + env(safe-area-inset-top));
+  left: calc(10px + env(safe-area-inset-left));
   z-index: 5;
 }

@@ -6,7 +6,7 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 3px;
+  padding: 2px;
   box-shadow: var(--shadow);
 }
 
@@ -32,8 +32,8 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   border-radius: 999px;
-  padding: 9px 12px;
-  min-width: 40px;
+  padding: 8px 12px;
+  min-width: 38px;
   transition: color 0.2s ease;
 }
 
