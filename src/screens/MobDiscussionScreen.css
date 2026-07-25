@@ -1,0 +1,26 @@
+.result-modal.was-mobteam {
+  border-color: var(--danger-border);
+  box-shadow: 0 0 0 1px var(--danger-border), var(--shadow-lg);
+}
+
+.result-modal.was-mobteam .reveal-badge {
+  background: var(--danger-bg);
+  color: var(--danger-hover);
+  border: 1px solid var(--danger-border);
+}
+
+.result-modal.was-town {
+  border-color: var(--safe-border);
+  box-shadow: 0 0 0 1px var(--safe-border), var(--shadow-lg);
+}
+
+.result-modal.was-town .reveal-badge {
+  background: var(--safe-bg);
+  color: var(--safe);
+  border: 1px solid var(--safe-border);
+}
+
+.skip-vote-btn {
+  width: 100%;
+  margin-top: 14px;
+}

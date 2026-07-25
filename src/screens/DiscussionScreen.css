@@ -1,0 +1,266 @@
+.discussion-screen {
+  gap: 4px;
+}
+
+.discussion-title {
+  font-size: clamp(24px, 7vw, 30px);
+  text-align: center;
+}
+
+.discussion-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.starting-player-banner {
+  margin-top: 20px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.starting-player-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.starting-player-name {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.timer-block {
+  margin-top: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-value {
+  font-family: var(--display);
+  font-size: clamp(34px, 11vw, 44px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+.timer-value.urgent {
+  color: var(--danger-hover);
+  animation: timer-pulse 1s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.timer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.discussion-section {
+  margin-top: 28px;
+}
+
+.discussion-section h2 {
+  font-size: 15px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.accuse-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accuse-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 15px;
+}
+
+.accuse-row span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accuse-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.eliminated-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eliminated-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.eliminated-row span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eliminated-tag {
+  font-size: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 10, 0.65);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(20px, env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom))
+    calc(20px + env(safe-area-inset-left));
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: clamp(20px, 6vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
+
+.modal-body {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+.result-modal.was-impostor {
+  border-color: var(--danger-border);
+  box-shadow: 0 0 0 1px var(--danger-border), var(--shadow-lg);
+}
+
+.result-modal.was-crew {
+  border-color: var(--safe-border);
+  box-shadow: 0 0 0 1px var(--safe-border), var(--shadow-lg);
+}
+
+.result-modal.was-white {
+  border-color: rgba(245, 185, 66, 0.4);
+  box-shadow: 0 0 0 1px rgba(245, 185, 66, 0.4), var(--shadow-lg);
+}
+
+.result-modal.was-white .reveal-badge {
+  background: rgba(245, 185, 66, 0.12);
+  color: var(--warn);
+  border: 1px solid rgba(245, 185, 66, 0.4);
+}
+
+.white-guess-modal input {
+  width: 100%;
+  text-align: center;
+}
+
+.result-modal .reveal-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.result-modal.was-impostor .reveal-badge {
+  background: var(--danger-bg);
+  color: var(--danger-hover);
+  border: 1px solid var(--danger-border);
+}
+
+.result-modal.was-crew .reveal-badge {
+  background: var(--safe-bg);
+  color: var(--safe);
+  border: 1px solid var(--safe-border);
+}
+
+.result-modal .btn-primary {
+  width: 100%;
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .timer-block {
+    margin-top: 12px;
+    padding: 14px;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .discussion-section {
+    margin-top: 16px;
+  }
+}

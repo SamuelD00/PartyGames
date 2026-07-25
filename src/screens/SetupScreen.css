@@ -1,0 +1,236 @@
+.setup-screen {
+  gap: 4px;
+}
+
+.setup-header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.setup-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.setup-title-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+
+.setup-title-button:hover {
+  opacity: 0.88;
+}
+
+.setup-title-button:active {
+  transform: scale(0.97);
+}
+
+.setup-logo {
+  color: var(--accent-hover);
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+}
+
+.setup-header h1 {
+  font-size: clamp(30px, 9vw, 40px);
+  background: linear-gradient(135deg, var(--accent-hover), var(--danger));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.setup-tagline {
+  color: var(--text-dim);
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.setup-section {
+  margin-top: 26px;
+}
+
+.setup-section h2 {
+  font-size: 15px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.player-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.player-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.player-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 8px 6px 14px;
+  font-size: 14px;
+}
+
+.player-chip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-chip.is-god {
+  border-color: var(--warn);
+  background: rgba(245, 185, 66, 0.1);
+}
+
+.halo-btn {
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.halo-btn.active {
+  color: var(--warn);
+  filter: drop-shadow(0 0 4px rgba(245, 185, 66, 0.6));
+}
+
+.setup-note {
+  color: var(--text-faint);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.setup-note.inline {
+  display: block;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.stepper-value {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pill.active {
+  background: rgba(139, 92, 246, 0.16);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.toggle-row strong {
+  display: block;
+  font-size: 15px;
+}
+
+.toggle-row input[type='checkbox'] {
+  width: 44px;
+  height: 26px;
+  appearance: none;
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.toggle-row input[type='checkbox']::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.toggle-row input[type='checkbox']:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle-row input[type='checkbox']:checked::after {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+.setup-error {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.start-btn {
+  margin-top: 24px;
+  width: 100%;
+  padding: 16px;
+  font-size: 17px;
+}
+
+.setup-footnote {
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+  margin-top: 14px;
+}

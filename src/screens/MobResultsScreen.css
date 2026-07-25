@@ -1,0 +1,33 @@
+.winner-banner.town-won {
+  border-color: var(--safe-border);
+  box-shadow: 0 0 0 1px var(--safe-border), 0 0 40px -12px rgba(34, 197, 94, 0.45), var(--shadow-lg);
+}
+
+.winner-banner.town-won .winner-label {
+  color: var(--safe);
+}
+
+.winner-banner.mob-won {
+  border-color: var(--danger-border);
+  box-shadow: 0 0 0 1px var(--danger-border), var(--shadow-lg);
+  animation: banner-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both, impostor-shake 0.5s ease 0.3s both;
+}
+
+.winner-banner.mob-won .winner-label {
+  color: var(--danger-hover);
+}
+
+.roster-row.was-mobteam {
+  border-color: var(--danger-border);
+}
+
+.roster-row.was-mobteam .roster-tag {
+  color: var(--danger-hover);
+}
+
+.results-hosted-by {
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+  margin-top: -6px;
+}

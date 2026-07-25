@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pacman -Q nodejs npm)",
+      "Bash(sudo pacman -S --noconfirm nodejs npm)",
+      "Bash(mv tmp/impostor-scaffold/.gitignore tmp/impostor-scaffold/.oxlintrc.json .)",
+      "Bash(rmdir tmp/impostor-scaffold tmp)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(npx oxlint *)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(python3 *)",
+      "Bash(node *)",
+      "WebSearch"
+    ]
+  }
+}

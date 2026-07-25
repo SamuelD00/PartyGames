@@ -1,0 +1,76 @@
+.wordpool-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pool-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.pool-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pool-hint-input {
+  width: 100%;
+  font-size: 14px;
+}
+
+.pool-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.pool-count {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.pool-toggle {
+  padding: 8px 16px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.pool-empty {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.pool-word-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pool-word-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 8px 6px 14px;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.pool-word-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pool-word-hint {
+  color: var(--text-faint);
+  font-size: 12px;
+}

@@ -1,0 +1,162 @@
+.reveal-screen {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.reveal-progress {
+  color: var(--text-faint);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.reveal-card {
+  width: 100%;
+  padding: clamp(24px, 8vw, 40px) clamp(18px, 6vw, 28px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: reveal-in 0.25s ease;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pass-card {
+  gap: 22px;
+  padding: clamp(32px, 10vw, 56px) clamp(18px, 6vw, 28px);
+}
+
+.pass-label {
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+.pass-name {
+  font-family: var(--display);
+  font-size: clamp(26px, 8vw, 32px);
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.reveal-btn {
+  padding: 16px 32px;
+  font-size: 16px;
+}
+
+.reveal-warning {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.reveal-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.impostor-badge {
+  background: var(--danger-bg);
+  color: var(--danger-hover);
+  border: 1px solid var(--danger-border);
+}
+
+.crew-badge {
+  background: var(--safe-bg);
+  color: var(--safe);
+  border: 1px solid var(--safe-border);
+}
+
+.white-badge {
+  background: rgba(245, 185, 66, 0.12);
+  color: var(--warn);
+  border: 1px solid rgba(245, 185, 66, 0.4);
+}
+
+.impostor-card {
+  border-color: var(--danger-border);
+  box-shadow: 0 0 0 1px var(--danger-border), var(--shadow-lg);
+}
+
+.white-card {
+  border-color: rgba(245, 185, 66, 0.4);
+  box-shadow: 0 0 0 1px rgba(245, 185, 66, 0.4), var(--shadow-lg);
+}
+
+.crew-card {
+  border-color: var(--safe-border);
+  box-shadow: 0 0 0 1px var(--safe-border), var(--shadow-lg);
+}
+
+.reveal-body {
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+.reveal-word {
+  font-family: var(--display);
+  font-size: clamp(24px, 7vw, 30px);
+  font-weight: 700;
+  color: var(--safe);
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.hint-box {
+  margin-top: 8px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-elevated-2);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+}
+
+.hint-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.hint-word {
+  font-size: 18px;
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+.next-btn {
+  width: 100%;
+  padding: 15px;
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .reveal-screen {
+    gap: 12px;
+  }
+
+  .pass-card {
+    padding: 20px 24px;
+    gap: 12px;
+  }
+
+  .reveal-card {
+    padding: 20px 24px;
+  }
+}

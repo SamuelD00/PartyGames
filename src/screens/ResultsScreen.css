@@ -1,0 +1,180 @@
+.results-screen {
+  gap: 4px;
+}
+
+.winner-banner {
+  position: relative;
+  overflow: visible;
+  padding: clamp(26px, 8vw, 36px) clamp(18px, 6vw, 24px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: banner-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.winner-banner.crew-won {
+  border-color: var(--safe-border);
+  box-shadow: 0 0 0 1px var(--safe-border), 0 0 40px -12px rgba(34, 197, 94, 0.45), var(--shadow-lg);
+}
+
+.winner-banner.impostors-won {
+  border-color: var(--danger-border);
+  box-shadow: 0 0 0 1px var(--danger-border), var(--shadow-lg);
+  animation: banner-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both, impostor-shake 0.5s ease 0.3s both;
+}
+
+@keyframes impostor-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+.celebration-sparkle {
+  position: absolute;
+  color: var(--warn);
+  opacity: 0;
+  animation: sparkle-pop 1.4s ease-out both;
+  pointer-events: none;
+}
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-8deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1) rotate(6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) rotate(0deg) translateY(-8px);
+  }
+}
+
+.winner-label {
+  font-family: var(--display);
+  font-size: clamp(22px, 7vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.crew-won .winner-label {
+  color: var(--safe);
+}
+
+.impostors-won .winner-label {
+  color: var(--danger-hover);
+}
+
+.winner-word {
+  color: var(--text-dim);
+  font-size: 15px;
+  overflow-wrap: break-word;
+}
+
+.winner-word strong {
+  color: var(--text);
+}
+
+.results-section {
+  margin-top: 28px;
+}
+
+.results-section h2 {
+  font-size: 15px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.roster-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roster-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 15px;
+}
+
+.roster-row span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roster-row.was-impostor {
+  border-color: var(--danger-border);
+}
+
+.roster-row.was-white {
+  border-color: rgba(245, 185, 66, 0.4);
+}
+
+.roster-tag {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.roster-row.was-impostor .roster-tag {
+  color: var(--danger-hover);
+}
+
+.roster-row.was-white .roster-tag {
+  color: var(--warn);
+}
+
+.results-actions {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-actions button {
+  width: 100%;
+  padding: 15px;
+}

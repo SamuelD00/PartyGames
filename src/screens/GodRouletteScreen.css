@@ -1,0 +1,15 @@
+.god-roulette-card {
+  gap: 22px;
+  padding: clamp(32px, 10vw, 56px) clamp(18px, 6vw, 28px);
+}
+
+.god-roulette-icon {
+  color: var(--warn);
+  filter: drop-shadow(0 0 10px rgba(245, 185, 66, 0.5));
+}
+
+.god-badge {
+  background: rgba(245, 185, 66, 0.12);
+  color: var(--warn);
+  border: 1px solid rgba(245, 185, 66, 0.4);
+}
