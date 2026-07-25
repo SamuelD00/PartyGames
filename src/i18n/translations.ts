@@ -116,8 +116,8 @@ const es: Dict = {
   'mobSetup.doctorDescription': 'Cada noche protege a un jugador de un ataque de la Mafia.',
   'mobSetup.toggleGod': 'Marcar a {{name}} como Dios',
   'mobSetup.godHint': 'Toca el halo junto a un jugador para elegirlo como Dios: quien dirige la partida sin jugar. Dios narra cada noche en voz alta, como en un juego de rol de mesa, y anuncia lo que pasa cada día. Si no eliges a nadie, lo sortearemos al empezar.',
-  'mobSetup.errorMinPlayers': 'Agrega al menos {{min}} jugadores (3 para jugar + 1 God) para empezar.',
-  'mobSetup.minPlayersNote': 'Agrega al menos {{min}} jugadores: 3 para jugar y 1 que será el God.',
+  'mobSetup.errorMinPlayers': 'Agrega al menos {{min}} jugadores (3 para jugar + 1 Dios) para empezar.',
+  'mobSetup.minPlayersNote': 'Agrega al menos {{min}} jugadores: 3 para jugar y 1 que será Dios.',
 
   'mobReveal.mobBadge': 'MAFIA',
   'mobReveal.mobTitle': 'Eres parte de la Mafia.',
