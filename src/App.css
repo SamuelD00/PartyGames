@@ -8,3 +8,10 @@
   gap: 8px;
   z-index: 5;
 }
+
+.top-controls-left {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top));
+  left: calc(14px + env(safe-area-inset-left));
+  z-index: 5;
+}

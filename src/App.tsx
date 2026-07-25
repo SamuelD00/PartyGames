@@ -13,8 +13,10 @@ function App() {
 
   return (
     <>
-      <div className="top-controls">
+      <div className="top-controls-left">
         <ThemeToggle />
+      </div>
+      <div className="top-controls">
         <LanguageToggle />
       </div>
       <PoweredByFooter />
