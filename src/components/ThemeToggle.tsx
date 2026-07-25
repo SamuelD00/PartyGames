@@ -14,7 +14,10 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={t(theme === 'dark' ? 'theme.switchToLight' : 'theme.switchToDark')}
     >
-      {theme === 'dark' ? <IconSun size={16} /> : <IconMoon size={16} />}
+      <span className="theme-toggle-icons">
+        <IconSun size={16} className={`theme-toggle-icon sun${theme === 'dark' ? ' visible' : ''}`} />
+        <IconMoon size={16} className={`theme-toggle-icon moon${theme === 'light' ? ' visible' : ''}`} />
+      </span>
     </button>
   );
 }

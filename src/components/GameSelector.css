@@ -62,14 +62,36 @@
   color: var(--accent-hover);
   flex-shrink: 0;
   filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+  animation: logo-float 5s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .game-selector-title-row h1 {
   font-size: clamp(28px, 8vw, 38px);
-  background: linear-gradient(135deg, var(--accent-hover), var(--danger));
+  background: linear-gradient(100deg, var(--accent-hover) 20%, var(--danger) 40%, var(--accent-hover) 60%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: title-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes title-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .game-selector-subtitle {
@@ -98,11 +120,13 @@
   border-radius: var(--radius);
   color: var(--text);
   text-align: left;
-  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .game-card:hover {
   border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .game-card:active {

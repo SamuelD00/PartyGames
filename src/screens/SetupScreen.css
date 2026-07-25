@@ -34,14 +34,36 @@
   color: var(--accent-hover);
   flex-shrink: 0;
   filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+  animation: logo-float 5s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .setup-header h1 {
   font-size: clamp(30px, 9vw, 40px);
-  background: linear-gradient(135deg, var(--accent-hover), var(--danger));
+  background: linear-gradient(100deg, var(--accent-hover) 20%, var(--danger) 40%, var(--accent-hover) 60%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: title-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes title-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .setup-tagline {
@@ -91,6 +113,18 @@
   border-radius: 999px;
   padding: 6px 8px 6px 14px;
   font-size: 14px;
+  animation: chip-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes chip-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .player-chip span {
@@ -155,6 +189,15 @@
   padding: 9px 16px;
   font-size: 14px;
   font-weight: 600;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.pill:hover {
+  border-color: var(--accent);
+}
+
+.pill:active {
+  transform: scale(0.95);
 }
 
 .pill.active {
