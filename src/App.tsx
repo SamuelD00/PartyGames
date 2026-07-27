@@ -3,6 +3,7 @@ import { GAMES } from './data/games';
 import { ImpostorApp } from './ImpostorApp';
 import { MobApp } from './MobApp';
 import { MimicApp } from './MimicApp';
+import { ForeheadApp } from './ForeheadApp';
 import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
 import { PoweredByFooter } from './components/PoweredByFooter';
@@ -31,6 +32,10 @@ function App() {
 
       {activeGameId === 'mimic' && (
         <MimicApp games={GAMES} activeGameId={activeGameId} onSwitchGame={setActiveGameId} />
+      )}
+
+      {activeGameId === 'forehead' && (
+        <ForeheadApp games={GAMES} activeGameId={activeGameId} onSwitchGame={setActiveGameId} />
       )}
     </>
   );

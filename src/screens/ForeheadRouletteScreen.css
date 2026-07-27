@@ -1,0 +1,15 @@
+.forehead-roulette-card {
+  gap: 22px;
+  padding: clamp(32px, 10vw, 56px) clamp(18px, 6vw, 28px);
+}
+
+.forehead-roulette-icon {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+}
+
+.forehead-roulette-badge {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}

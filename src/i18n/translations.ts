@@ -11,6 +11,7 @@ const es: Dict = {
   'games.impostor': 'Impostor',
   'games.mob': 'Mafia',
   'games.mimic': 'Mímica',
+  'games.forehead': '¿Quién soy?',
 
   'gameSelector.subtitle': 'Elige un juego',
   'gameSelector.current': 'Jugando ahora',
@@ -223,6 +224,52 @@ const es: Dict = {
   'mimicResults.points.one': '{{n}} punto',
   'mimicResults.points.other': '{{n}} puntos',
 
+  'forehead.tagline': 'Un jugador se pone el teléfono en la frente. Los demás dan pistas sin decir la palabra.',
+  'forehead.turnLabel': 'Turno {{n}}',
+
+  'foreheadSetup.turnsTitle': 'Cantidad de turnos',
+  'foreheadSetup.turnsDescription': 'La partida termina automáticamente después de esta cantidad de turnos.',
+  'foreheadSetup.fewerTurns': 'Menos turnos',
+  'foreheadSetup.moreTurns': 'Más turnos',
+  'foreheadSetup.timerTitle': 'Tiempo por turno',
+
+  'foreheadRoulette.progress': 'Turno {{n}} — Eligiendo quién adivina…',
+  'foreheadRoulette.badge': 'ADIVINA',
+  'foreheadRoulette.result': '{{name}} adivina este turno.',
+
+  'foreheadReady.badge': 'ADIVINA',
+  'foreheadReady.instructions':
+    '{{name}}, apoya el teléfono en tu frente con la pantalla mirando hacia los demás. No mires la pantalla.',
+  'foreheadReady.tipLabel': 'Cómo se juega',
+  'foreheadReady.tipBody':
+    'Los demás ven la palabra y te dan pistas sin decirla. Cuando adivines, inclina el teléfono hacia arriba para sumar el punto. Si se atascan, inclínalo hacia abajo para pasar de palabra.',
+  'foreheadReady.start': 'Listo, empezar turno',
+
+  'foreheadCountdown.note': '{{name}}, ponte el teléfono en la frente ya mismo…',
+  'foreheadCountdown.go': '¡Ya!',
+
+  'foreheadPlay.correctCount.one': '{{n}} acierto',
+  'foreheadPlay.correctCount.other': '{{n}} aciertos',
+  'foreheadPlay.tiltHint': 'Inclina el teléfono hacia arriba si acertaste, hacia abajo para pasar.',
+  'foreheadPlay.buttonHint': 'Tu dispositivo no soporta inclinación: usa los botones (o que alguien los toque por ti).',
+  'foreheadPlay.correct': 'Acertó',
+  'foreheadPlay.skip': 'Pasar',
+  'foreheadPlay.endTurn': 'Terminar turno',
+
+  'foreheadTurnResults.badge': 'TURNO TERMINADO',
+  'foreheadTurnResults.title': '¡Se acabó el turno de {{name}}!',
+  'foreheadTurnResults.pointsEarned.one': 'Sumó {{n}} punto este turno.',
+  'foreheadTurnResults.pointsEarned.other': 'Sumó {{n}} puntos este turno.',
+  'foreheadTurnResults.nextTurn': 'Siguiente turno',
+  'foreheadTurnResults.seeResults': 'Ver resultados',
+
+  'foreheadResults.scoresTitle': 'Puntuación',
+  'foreheadResults.winner': '¡{{name}} gana la partida!',
+  'foreheadResults.tie': 'Empate entre {{names}}',
+  'foreheadResults.noWinner': 'Nadie sumó puntos todavía',
+  'foreheadResults.points.one': '{{n}} punto',
+  'foreheadResults.points.other': '{{n}} puntos',
+
   'language.label': 'Idioma',
 
   'theme.switchToDark': 'Cambiar a modo oscuro',
@@ -233,6 +280,7 @@ const en: Dict = {
   'games.impostor': 'Impostor',
   'games.mob': 'The Mob',
   'games.mimic': 'Mimic',
+  'games.forehead': 'Who Am I?',
 
   'gameSelector.subtitle': 'Choose a game',
   'gameSelector.current': 'Currently playing',
@@ -444,6 +492,52 @@ const en: Dict = {
   'mimicResults.noWinner': 'No one scored yet',
   'mimicResults.points.one': '{{n}} point',
   'mimicResults.points.other': '{{n}} points',
+
+  'forehead.tagline': 'One player holds the phone to their forehead. Everyone else gives clues without saying the word.',
+  'forehead.turnLabel': 'Turn {{n}}',
+
+  'foreheadSetup.turnsTitle': 'Number of turns',
+  'foreheadSetup.turnsDescription': 'The game ends automatically after this many turns.',
+  'foreheadSetup.fewerTurns': 'Fewer turns',
+  'foreheadSetup.moreTurns': 'More turns',
+  'foreheadSetup.timerTitle': 'Timer per turn',
+
+  'foreheadRoulette.progress': 'Turn {{n}} — Picking who guesses…',
+  'foreheadRoulette.badge': 'GUESSES',
+  'foreheadRoulette.result': '{{name}} guesses this turn.',
+
+  'foreheadReady.badge': 'GUESSES',
+  'foreheadReady.instructions':
+    "{{name}}, hold the phone against your forehead with the screen facing everyone else. Don't look at the screen.",
+  'foreheadReady.tipLabel': 'How to play',
+  'foreheadReady.tipBody':
+    "Everyone else sees the word and gives you clues without saying it. When you guess it, tilt the phone up to score the point. If you're stuck, tilt it down to skip to the next word.",
+  'foreheadReady.start': "Ready, start turn",
+
+  'foreheadCountdown.note': '{{name}}, get the phone on your forehead now…',
+  'foreheadCountdown.go': 'Go!',
+
+  'foreheadPlay.correctCount.one': '{{n}} correct',
+  'foreheadPlay.correctCount.other': '{{n}} correct',
+  'foreheadPlay.tiltHint': 'Tilt the phone up if they guessed it, down to skip.',
+  'foreheadPlay.buttonHint': "Your device doesn't support tilt controls: use the buttons (or have a friend tap them for you).",
+  'foreheadPlay.correct': 'Correct',
+  'foreheadPlay.skip': 'Skip',
+  'foreheadPlay.endTurn': 'End turn',
+
+  'foreheadTurnResults.badge': 'TURN OVER',
+  'foreheadTurnResults.title': "{{name}}'s turn is over!",
+  'foreheadTurnResults.pointsEarned.one': 'Scored {{n}} point this turn.',
+  'foreheadTurnResults.pointsEarned.other': 'Scored {{n}} points this turn.',
+  'foreheadTurnResults.nextTurn': 'Next turn',
+  'foreheadTurnResults.seeResults': 'See results',
+
+  'foreheadResults.scoresTitle': 'Scores',
+  'foreheadResults.winner': '{{name}} wins the game!',
+  'foreheadResults.tie': 'Tie between {{names}}',
+  'foreheadResults.noWinner': 'No one scored yet',
+  'foreheadResults.points.one': '{{n}} point',
+  'foreheadResults.points.other': '{{n}} points',
 
   'language.label': 'Language',
 

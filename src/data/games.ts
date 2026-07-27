@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 import type { IconProps } from '../components/icons';
-import { IconDisguise, IconMimic, IconMob } from '../components/icons';
+import { IconDisguise, IconForehead, IconMimic, IconMob } from '../components/icons';
 
 export interface GameDescriptor {
   id: string;
@@ -12,4 +12,5 @@ export const GAMES: GameDescriptor[] = [
   { id: 'impostor', nameKey: 'games.impostor', icon: IconDisguise },
   { id: 'mob', nameKey: 'games.mob', icon: IconMob },
   { id: 'mimic', nameKey: 'games.mimic', icon: IconMimic },
+  { id: 'forehead', nameKey: 'games.forehead', icon: IconForehead },
 ];

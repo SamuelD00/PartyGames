@@ -1,0 +1,16 @@
+.winner-banner.forehead-won {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4), 0 0 40px -12px rgba(56, 189, 248, 0.45), var(--shadow-lg);
+}
+
+.forehead-won .winner-label {
+  color: #38bdf8;
+}
+
+.roster-row.is-leader {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.roster-row.is-leader .forehead-results-score-tag {
+  color: #38bdf8;
+}

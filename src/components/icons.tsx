@@ -121,6 +121,32 @@ export function IconMimic({ size = 44, className }: IconProps) {
   );
 }
 
+export function IconForehead({ size = 44, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} {...base}>
+      <path d="M5 13.5C5 7.7 8.1 3.5 12 3.5s7 4.2 7 10" />
+      <path d="M4.3 13.5h15.4v1.2a7.7 7.7 0 0 1-15.4 0v-1.2Z" />
+      <rect x="8.6" y="3.3" width="6.6" height="4.6" rx="1.1" transform="rotate(-10 11.9 5.6)" />
+    </svg>
+  );
+}
+
+export function IconCheck({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} {...base}>
+      <path d="M4 12.5l5.5 5.5L20 6.5" />
+    </svg>
+  );
+}
+
+export function IconSkip({ size = 16, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} {...base}>
+      <path d="M5 5l14 14M19 5L5 19" />
+    </svg>
+  );
+}
+
 export function IconDisguise({ size = 44, className }: IconProps) {
   return (
     <svg width={size} height={size * (26 / 40)} viewBox="0 0 40 26" className={className} {...base}>
