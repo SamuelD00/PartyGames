@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TiltPermission } from '../utils/tilt';
 
-const TILT_THRESHOLD_DEG = 32;
-const REARM_ZONE_DEG = 12;
+// Separate thresholds per direction: tilting the phone "up" (leaning it back) has a much
+// smaller comfortable range of motion than tilting it "down" (nodding it forward) when it's
+// held flat against your forehead — a single symmetric threshold makes "up" much harder to
+// reach than "down" ends up being, rather than the two feeling equally deliberate.
+const TILT_THRESHOLD_UP_DEG = 18;
+const TILT_THRESHOLD_DOWN_DEG = 32;
+const REARM_ZONE_DEG = 10;
 // A reading past the threshold only counts once it's held continuously for this long — a quick
 // flick or incidental jostle crosses the threshold for a single frame all the time, but a
 // deliberate "yes"/"no" tilt is a held motion. Requiring the hold is what actually makes the
@@ -168,7 +173,7 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
 
       if (armedRef.current) {
         const direction: 'up' | 'down' | null =
-          delta >= TILT_THRESHOLD_DEG ? 'up' : delta <= -TILT_THRESHOLD_DEG ? 'down' : null;
+          delta >= TILT_THRESHOLD_UP_DEG ? 'up' : delta <= -TILT_THRESHOLD_DOWN_DEG ? 'down' : null;
 
         if (direction === null) {
           pendingRef.current = null;
