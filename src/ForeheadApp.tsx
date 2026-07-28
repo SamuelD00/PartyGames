@@ -138,7 +138,7 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
       )}
 
       {game.phase === 'ready' && game.guesserName !== null && (
-        <ForeheadOrientationLock target="landscape">
+        <ForeheadOrientationLock target="portrait">
           <ForeheadReadyScreen
             playerName={game.guesserName}
             turn={game.turn}

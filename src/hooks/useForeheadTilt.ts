@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TiltPermission } from '../utils/tilt';
 
-const TILT_THRESHOLD_DEG = 26;
+const TILT_THRESHOLD_DEG = 32;
 const REARM_ZONE_DEG = 12;
+// A reading past the threshold only counts once it's held continuously for this long — a quick
+// flick or incidental jostle crosses the threshold for a single frame all the time, but a
+// deliberate "yes"/"no" tilt is a held motion. Requiring the hold is what actually makes the
+// gesture feel commit-to-trigger rather than easy to set off by accident.
+const COMMIT_HOLD_MS = 180;
 // After a tilt registers, ignore further tilts for this long — the bounce-back from the
 // gesture that just fired (or overshoot into the opposite direction) would otherwise often
 // trigger the next word immediately, which reads as the game "eating" a guess.
@@ -78,8 +83,9 @@ function getMotionTiltValue(event: DeviceMotionEvent, screenAngle: number): numb
 
 // Calibrates against whatever angle the phone happens to be at when the listener attaches
 // (i.e. resting on the player's forehead), then fires once the tilt strays far enough from
-// that baseline in either direction. Requires the phone to come back near-neutral before it
-// can fire again, so a single tilt doesn't register twice.
+// that baseline in either direction *and stays there* for COMMIT_HOLD_MS — a held, deliberate
+// tilt, not a momentary spike. Requires the phone to come back near-neutral (and the cooldown
+// to elapse) before it can fire again, so a single tilt doesn't register twice.
 //
 // Tries deviceorientation / deviceorientationabsolute first (smooth, OS-fused) and falls back
 // to raw accelerometer data (devicemotion) if neither produces a reading within a short grace
@@ -119,12 +125,14 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
     const lastDebugUpdateRef = { current: 0 };
     const lastTriggerAtRef = { current: 0 };
     const motionAllowedRef = { current: false };
+    const pendingRef = { current: null as { direction: 'up' | 'down'; since: number } | null };
 
     const recalibrate = () => {
       baselineRef.current = null;
       smoothedMotionRef.current = null;
       armedRef.current = true;
       lastTriggerAtRef.current = 0;
+      pendingRef.current = null;
     };
 
     const graceTimeout = window.setTimeout(() => {
@@ -147,16 +155,21 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
       }
 
       if (armedRef.current) {
-        if (delta >= TILT_THRESHOLD_DEG) {
+        const direction: 'up' | 'down' | null =
+          delta >= TILT_THRESHOLD_DEG ? 'up' : delta <= -TILT_THRESHOLD_DEG ? 'down' : null;
+
+        if (direction === null) {
+          pendingRef.current = null;
+          if (Math.abs(delta) <= REARM_ZONE_DEG) {
+            baselineRef.current += BASELINE_DRIFT_ALPHA * delta;
+          }
+        } else if (pendingRef.current?.direction !== direction) {
+          pendingRef.current = { direction, since: now };
+        } else if (now - pendingRef.current.since >= COMMIT_HOLD_MS) {
           armedRef.current = false;
           lastTriggerAtRef.current = now;
-          onTiltUpRef.current();
-        } else if (delta <= -TILT_THRESHOLD_DEG) {
-          armedRef.current = false;
-          lastTriggerAtRef.current = now;
-          onTiltDownRef.current();
-        } else if (Math.abs(delta) <= REARM_ZONE_DEG) {
-          baselineRef.current += BASELINE_DRIFT_ALPHA * delta;
+          pendingRef.current = null;
+          (direction === 'up' ? onTiltUpRef : onTiltDownRef).current();
         }
       } else if (Math.abs(delta) <= REARM_ZONE_DEG && now - lastTriggerAtRef.current >= TRIGGER_COOLDOWN_MS) {
         armedRef.current = true;
