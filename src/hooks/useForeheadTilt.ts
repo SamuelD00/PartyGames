@@ -40,25 +40,37 @@ function getScreenAngle(): number {
 // "up". If the OS auto-rotates mid-turn (easy to trigger by accident with this exact gesture),
 // raw beta stops meaning "tilt forward/back" — this remaps whichever axis currently represents
 // that physical tilt back to a single consistent value.
+//
+// The sign is flipped at the end: beta/gamma's sign convention assumes the screen faces the
+// holder (normal handheld use), but here the screen faces *away* from the player (pressed
+// against the forehead, read by everyone else) — the front/back relationship that defines
+// "positive" is reversed, so without this the gesture registers exactly backwards.
 function getOrientationTiltValue(event: DeviceOrientationEvent, screenAngle: number): number | null {
   const { beta, gamma } = event;
   if (beta === null || gamma === null) return null;
+  let raw: number;
   switch (screenAngle) {
     case 90:
-      return -gamma;
+      raw = -gamma;
+      break;
     case 180:
-      return -beta;
+      raw = -beta;
+      break;
     case 270:
-      return gamma;
+      raw = gamma;
+      break;
     default:
-      return beta;
+      raw = beta;
+      break;
   }
+  return -raw;
 }
 
 // Fallback for phones that never fire deviceorientation (typically: no gyroscope, so Chrome's
 // fused "game rotation vector" sensor doesn't exist on that device). Every phone has a plain
 // accelerometer, so we derive an equivalent tilt angle straight from the gravity vector instead
-// — noisier than fused orientation, but universally available.
+// — noisier than fused orientation, but universally available. Sign flipped for the same
+// screen-faces-away reason as getOrientationTiltValue above.
 function getMotionTiltValue(event: DeviceMotionEvent, screenAngle: number): number | null {
   const g = event.accelerationIncludingGravity;
   if (!g || g.x === null || g.y === null || g.z === null) return null;
@@ -78,7 +90,7 @@ function getMotionTiltValue(event: DeviceMotionEvent, screenAngle: number): numb
       a = y;
       break;
   }
-  return Math.atan2(a, z) * (180 / Math.PI);
+  return -Math.atan2(a, z) * (180 / Math.PI);
 }
 
 // Calibrates against whatever angle the phone happens to be at when the listener attaches
