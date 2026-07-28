@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
 import './RevealScreen.css';
 import './ForeheadCountdownScreen.css';
-import './ForeheadPortraitLock.css';
 
 const COUNTDOWN_START = 3;
 
@@ -26,7 +25,7 @@ export function ForeheadCountdownScreen({ playerName, onDone }: ForeheadCountdow
   }, [count]);
 
   return (
-    <div className="screen reveal-screen forehead-countdown-screen forehead-lock-portrait">
+    <div className="screen reveal-screen forehead-countdown-screen">
       <p className="forehead-countdown-note">{t('foreheadCountdown.note', { name: playerName })}</p>
       <span key={count} className="forehead-countdown-number">
         {count > 0 ? count : t('foreheadCountdown.go')}

@@ -4,7 +4,6 @@ import { requestTiltPermission, type TiltPermission } from '../utils/tilt';
 import { lockPortrait } from '../utils/orientationLock';
 import './RevealScreen.css';
 import './ForeheadReadyScreen.css';
-import './ForeheadPortraitLock.css';
 
 interface ForeheadReadyScreenProps {
   playerName: string;
@@ -25,7 +24,7 @@ export function ForeheadReadyScreen({ playerName, turn, onStart, onEndGame }: Fo
   };
 
   return (
-    <div className="screen reveal-screen forehead-lock-portrait">
+    <div className="screen reveal-screen">
       <p className="reveal-progress">{t('forehead.turnLabel', { n: turn })}</p>
 
       <div className="reveal-card card forehead-ready-card">

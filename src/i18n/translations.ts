@@ -252,6 +252,8 @@ const es: Dict = {
   'foreheadPlay.correctCount.other': '{{n}} aciertos',
   'foreheadPlay.tiltHint': 'Inclina el teléfono hacia arriba si acertaste, hacia abajo para pasar.',
   'foreheadPlay.buttonHint': 'Tu dispositivo no soporta inclinación: usa los botones (o que alguien los toque por ti).',
+  'foreheadPlay.deniedHint':
+    'Denegaste el acceso al movimiento: usa los botones, o habilítalo en los ajustes del navegador y empieza el turno de nuevo.',
   'foreheadPlay.correct': 'Acertó',
   'foreheadPlay.skip': 'Pasar',
   'foreheadPlay.endTurn': 'Terminar turno',
@@ -521,6 +523,8 @@ const en: Dict = {
   'foreheadPlay.correctCount.other': '{{n}} correct',
   'foreheadPlay.tiltHint': 'Tilt the phone up if they guessed it, down to skip.',
   'foreheadPlay.buttonHint': "Your device doesn't support tilt controls: use the buttons (or have a friend tap them for you).",
+  'foreheadPlay.deniedHint':
+    'You denied motion access: use the buttons, or enable it in your browser settings and start the turn again.',
   'foreheadPlay.correct': 'Correct',
   'foreheadPlay.skip': 'Skip',
   'foreheadPlay.endTurn': 'End turn',

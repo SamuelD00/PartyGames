@@ -6,7 +6,6 @@ import { IconCheck, IconSkip } from '../components/icons';
 import './RevealScreen.css';
 import './DiscussionScreen.css';
 import './ForeheadPlayScreen.css';
-import './ForeheadPortraitLock.css';
 
 const URGENT_THRESHOLD = 10;
 
@@ -51,10 +50,10 @@ export function ForeheadPlayScreen({
     return () => clearInterval(interval);
   }, [timerSeconds]);
 
-  const { active: tiltActive } = useForeheadTilt(tiltPermission, onCorrect, onSkip);
+  const { active: tiltActive, debugDelta } = useForeheadTilt(tiltPermission, onCorrect, onSkip);
 
   return (
-    <div className="screen discussion-screen forehead-play-screen forehead-lock-portrait">
+    <div className="screen discussion-screen forehead-play-screen">
       <div className="forehead-play-header">
         <h1 className="discussion-title">{t('forehead.turnLabel', { n: turn })}</h1>
         <span className="forehead-score-tag">{tp('foreheadPlay.correctCount', correctCount)}</span>
@@ -73,7 +72,14 @@ export function ForeheadPlayScreen({
       </div>
 
       <div className="forehead-tilt-hint">
-        {tiltActive ? t('foreheadPlay.tiltHint') : t('foreheadPlay.buttonHint')}
+        {tiltActive
+          ? t('foreheadPlay.tiltHint')
+          : tiltPermission === 'denied'
+            ? t('foreheadPlay.deniedHint')
+            : t('foreheadPlay.buttonHint')}
+        {tiltActive && debugDelta !== null && (
+          <span className="forehead-tilt-debug"> ({debugDelta > 0 ? '+' : ''}{debugDelta}°)</span>
+        )}
       </div>
 
       <div className="forehead-action-row">

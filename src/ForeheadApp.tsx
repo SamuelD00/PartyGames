@@ -5,6 +5,7 @@ import type { ForeheadSetup } from './types/forehead';
 import type { GameDescriptor } from './data/games';
 import type { TiltPermission } from './utils/tilt';
 import { unlockOrientation } from './utils/orientationLock';
+import { ForeheadPortraitLock } from './components/ForeheadPortraitLock';
 import { ForeheadSetupScreen } from './screens/ForeheadSetupScreen';
 import { ForeheadRouletteScreen } from './screens/ForeheadRouletteScreen';
 import { ForeheadReadyScreen } from './screens/ForeheadReadyScreen';
@@ -137,48 +138,56 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
       )}
 
       {game.phase === 'ready' && game.guesserName !== null && (
-        <ForeheadReadyScreen
-          playerName={game.guesserName}
-          turn={game.turn}
-          onStart={handleReadyStart}
-          onEndGame={handleEndGame}
-        />
+        <ForeheadPortraitLock>
+          <ForeheadReadyScreen
+            playerName={game.guesserName}
+            turn={game.turn}
+            onStart={handleReadyStart}
+            onEndGame={handleEndGame}
+          />
+        </ForeheadPortraitLock>
       )}
 
       {game.phase === 'countdown' && game.guesserName !== null && (
-        <ForeheadCountdownScreen
-          key={game.turn}
-          playerName={game.guesserName}
-          onDone={() => dispatch({ type: 'COUNTDOWN_DONE' })}
-        />
+        <ForeheadPortraitLock>
+          <ForeheadCountdownScreen
+            key={game.turn}
+            playerName={game.guesserName}
+            onDone={() => dispatch({ type: 'COUNTDOWN_DONE' })}
+          />
+        </ForeheadPortraitLock>
       )}
 
       {game.phase === 'playing' && game.currentWord !== null && (
-        <ForeheadPlayScreen
-          key={game.turn}
-          word={game.currentWord}
-          turn={game.turn}
-          timerSeconds={game.timerSeconds}
-          timerRemaining={game.timerRemaining}
-          correctCount={game.correctWords.length}
-          tiltPermission={tiltPermission}
-          onTick={() => dispatch({ type: 'TICK' })}
-          onCorrect={handleCorrect}
-          onSkip={handleSkip}
-          onEndTurn={() => dispatch({ type: 'END_TURN' })}
-        />
+        <ForeheadPortraitLock>
+          <ForeheadPlayScreen
+            key={game.turn}
+            word={game.currentWord}
+            turn={game.turn}
+            timerSeconds={game.timerSeconds}
+            timerRemaining={game.timerRemaining}
+            correctCount={game.correctWords.length}
+            tiltPermission={tiltPermission}
+            onTick={() => dispatch({ type: 'TICK' })}
+            onCorrect={handleCorrect}
+            onSkip={handleSkip}
+            onEndTurn={() => dispatch({ type: 'END_TURN' })}
+          />
+        </ForeheadPortraitLock>
       )}
 
       {game.phase === 'turnResults' && game.guesserName !== null && (
-        <ForeheadTurnResultsScreen
-          playerName={game.guesserName}
-          turn={game.turn}
-          turnCount={game.turnCount}
-          correctWords={game.correctWords}
-          skippedWords={game.skippedWords}
-          onContinue={handleTurnContinue}
-          onEndGame={handleEndGame}
-        />
+        <ForeheadPortraitLock>
+          <ForeheadTurnResultsScreen
+            playerName={game.guesserName}
+            turn={game.turn}
+            turnCount={game.turnCount}
+            correctWords={game.correctWords}
+            skippedWords={game.skippedWords}
+            onContinue={handleTurnContinue}
+            onEndGame={handleEndGame}
+          />
+        </ForeheadPortraitLock>
       )}
 
       {game.phase === 'results' && (

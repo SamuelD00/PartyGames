@@ -3,6 +3,7 @@ import type { TiltPermission } from '../utils/tilt';
 
 const TILT_THRESHOLD_DEG = 22;
 const REARM_ZONE_DEG = 10;
+const DEBUG_UPDATE_INTERVAL_MS = 150;
 
 function getScreenAngle(): number {
   if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.angle === 'number') {
@@ -10,7 +11,7 @@ function getScreenAngle(): number {
   }
   // Legacy iOS Safari fallback: window.orientation is -90/0/90/180.
   const legacy = (window as unknown as { orientation?: number }).orientation;
-  if (typeof legacy === 'number') return (legacy + 360) % 360;
+  if (typeof legacy === 'number') return ((legacy % 360) + 360) % 360;
   return 0;
 }
 
@@ -42,21 +43,29 @@ function getTiltValue(event: DeviceOrientationEvent, screenAngle: number): numbe
 // "granted" just means the browser exposes the API, not that a gyroscope is actually behind
 // it (e.g. plain desktop Chrome), so callers should use `active` to decide whether to surface
 // tilt controls versus falling back to on-screen buttons.
+//
+// `debugDelta` is a throttled (not per-event) live readout of the current tilt relative to
+// baseline, in degrees — exposed so the UI can show it. Without a visible signal, "tilt isn't
+// working" is otherwise a black box: this makes it obvious whether the sensor is producing
+// *any* data at all versus producing data that just isn't crossing the threshold.
 export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void, onTiltDown: () => void) {
   const onTiltUpRef = useRef(onTiltUp);
   const onTiltDownRef = useRef(onTiltDown);
   onTiltUpRef.current = onTiltUp;
   onTiltDownRef.current = onTiltDown;
   const [active, setActive] = useState(false);
+  const [debugDelta, setDebugDelta] = useState<number | null>(null);
 
   useEffect(() => {
     if (permission !== 'granted') {
       setActive(false);
+      setDebugDelta(null);
       return;
     }
 
     const baselineRef = { current: null as number | null };
     const armedRef = { current: true };
+    const lastDebugUpdateRef = { current: 0 };
 
     const recalibrate = () => {
       baselineRef.current = null;
@@ -69,9 +78,16 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
       if (baselineRef.current === null) {
         baselineRef.current = value;
         setActive(true);
+        setDebugDelta(0);
         return;
       }
       const delta = value - baselineRef.current;
+
+      const now = Date.now();
+      if (now - lastDebugUpdateRef.current >= DEBUG_UPDATE_INTERVAL_MS) {
+        lastDebugUpdateRef.current = now;
+        setDebugDelta(Math.round(delta));
+      }
 
       if (armedRef.current) {
         if (delta >= TILT_THRESHOLD_DEG) {
@@ -101,5 +117,5 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
     };
   }, [permission]);
 
-  return { active };
+  return { active, debugDelta };
 }
