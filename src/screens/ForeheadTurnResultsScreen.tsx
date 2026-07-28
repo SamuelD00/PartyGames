@@ -26,7 +26,7 @@ export function ForeheadTurnResultsScreen({
   const isLastTurn = turn >= turnCount;
 
   return (
-    <div className="screen reveal-screen">
+    <div className="screen reveal-screen forehead-turn-screen">
       <p className="reveal-progress">{t('forehead.turnLabel', { n: turn })}</p>
 
       <div className="reveal-card card forehead-ready-card">

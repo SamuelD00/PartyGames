@@ -24,7 +24,7 @@ export function ForeheadReadyScreen({ playerName, turn, onStart, onEndGame }: Fo
   };
 
   return (
-    <div className="screen reveal-screen">
+    <div className="screen reveal-screen forehead-turn-screen">
       <p className="reveal-progress">{t('forehead.turnLabel', { n: turn })}</p>
 
       <div className="reveal-card card forehead-ready-card">

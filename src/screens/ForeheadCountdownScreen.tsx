@@ -25,7 +25,7 @@ export function ForeheadCountdownScreen({ playerName, onDone }: ForeheadCountdow
   }, [count]);
 
   return (
-    <div className="screen reveal-screen forehead-countdown-screen">
+    <div className="screen reveal-screen forehead-countdown-screen forehead-turn-screen">
       <p className="forehead-countdown-note">{t('foreheadCountdown.note', { name: playerName })}</p>
       <span key={count} className="forehead-countdown-number">
         {count > 0 ? count : t('foreheadCountdown.go')}

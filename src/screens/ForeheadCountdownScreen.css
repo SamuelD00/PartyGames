@@ -1,3 +1,7 @@
+.screen.forehead-turn-screen {
+  max-width: min(92vw, 680px);
+}
+
 .forehead-countdown-screen {
   justify-content: center;
   align-items: center;
