@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TiltPermission } from '../utils/tilt';
 
-const TILT_THRESHOLD_DEG = 22;
-const REARM_ZONE_DEG = 10;
+const TILT_THRESHOLD_DEG = 26;
+const REARM_ZONE_DEG = 12;
+// After a tilt registers, ignore further tilts for this long — the bounce-back from the
+// gesture that just fired (or overshoot into the opposite direction) would otherwise often
+// trigger the next word immediately, which reads as the game "eating" a guess.
+const TRIGGER_COOLDOWN_MS = 500;
+// Slowly pulls the baseline toward wherever the phone is actually resting, but only while it's
+// already near-neutral (never mid-gesture) — otherwise a turn spent gradually lowering your arm
+// makes "up" easier to trigger than "down" by the end, which is what actually reads as the
+// tilt being unreliable/confusing rather than a clean, consistent threshold.
+const BASELINE_DRIFT_ALPHA = 0.03;
 const DEBUG_UPDATE_INTERVAL_MS = 150;
 // How long to wait for a real deviceorientation/deviceorientationabsolute reading before
 // falling back to raw accelerometer data. Orientation events are smoother (OS-fused) so we
@@ -108,12 +117,14 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
     const smoothedMotionRef = { current: null as number | null };
     const armedRef = { current: true };
     const lastDebugUpdateRef = { current: 0 };
+    const lastTriggerAtRef = { current: 0 };
     const motionAllowedRef = { current: false };
 
     const recalibrate = () => {
       baselineRef.current = null;
       smoothedMotionRef.current = null;
       armedRef.current = true;
+      lastTriggerAtRef.current = 0;
     };
 
     const graceTimeout = window.setTimeout(() => {
@@ -138,12 +149,16 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
       if (armedRef.current) {
         if (delta >= TILT_THRESHOLD_DEG) {
           armedRef.current = false;
+          lastTriggerAtRef.current = now;
           onTiltUpRef.current();
         } else if (delta <= -TILT_THRESHOLD_DEG) {
           armedRef.current = false;
+          lastTriggerAtRef.current = now;
           onTiltDownRef.current();
+        } else if (Math.abs(delta) <= REARM_ZONE_DEG) {
+          baselineRef.current += BASELINE_DRIFT_ALPHA * delta;
         }
-      } else if (Math.abs(delta) <= REARM_ZONE_DEG) {
+      } else if (Math.abs(delta) <= REARM_ZONE_DEG && now - lastTriggerAtRef.current >= TRIGGER_COOLDOWN_MS) {
         armedRef.current = true;
       }
     };

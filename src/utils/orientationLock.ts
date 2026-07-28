@@ -1,4 +1,4 @@
-// Best-effort supplement to the forced-rotation trick (ForeheadLandscapeLock), which does the
+// Best-effort supplement to the forced-rotation trick (ForeheadOrientationLock), which does the
 // real work. The Screen Orientation API is unsupported in iOS Safari entirely and often needs
 // fullscreen elsewhere, so failures here are expected and silently ignored — this just lets the
 // OS itself honor landscape (status bar included) on browsers where it's available.

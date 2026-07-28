@@ -1,4 +1,4 @@
-.forehead-landscape-lock-outer {
+.forehead-orientation-lock-outer {
   position: fixed;
   inset: 0;
   display: flex;
@@ -8,7 +8,7 @@
   z-index: 50;
 }
 
-.forehead-landscape-lock-inner {
+.forehead-orientation-lock-inner {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
