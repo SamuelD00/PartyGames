@@ -5,7 +5,7 @@ import type { ForeheadSetup } from './types/forehead';
 import type { GameDescriptor } from './data/games';
 import type { TiltPermission } from './utils/tilt';
 import { unlockOrientation } from './utils/orientationLock';
-import { ForeheadPortraitLock } from './components/ForeheadPortraitLock';
+import { ForeheadLandscapeLock } from './components/ForeheadLandscapeLock';
 import { ForeheadSetupScreen } from './screens/ForeheadSetupScreen';
 import { ForeheadRouletteScreen } from './screens/ForeheadRouletteScreen';
 import { ForeheadReadyScreen } from './screens/ForeheadReadyScreen';
@@ -138,28 +138,28 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
       )}
 
       {game.phase === 'ready' && game.guesserName !== null && (
-        <ForeheadPortraitLock>
+        <ForeheadLandscapeLock>
           <ForeheadReadyScreen
             playerName={game.guesserName}
             turn={game.turn}
             onStart={handleReadyStart}
             onEndGame={handleEndGame}
           />
-        </ForeheadPortraitLock>
+        </ForeheadLandscapeLock>
       )}
 
       {game.phase === 'countdown' && game.guesserName !== null && (
-        <ForeheadPortraitLock>
+        <ForeheadLandscapeLock>
           <ForeheadCountdownScreen
             key={game.turn}
             playerName={game.guesserName}
             onDone={() => dispatch({ type: 'COUNTDOWN_DONE' })}
           />
-        </ForeheadPortraitLock>
+        </ForeheadLandscapeLock>
       )}
 
       {game.phase === 'playing' && game.currentWord !== null && (
-        <ForeheadPortraitLock>
+        <ForeheadLandscapeLock>
           <ForeheadPlayScreen
             key={game.turn}
             word={game.currentWord}
@@ -173,11 +173,11 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
             onSkip={handleSkip}
             onEndTurn={() => dispatch({ type: 'END_TURN' })}
           />
-        </ForeheadPortraitLock>
+        </ForeheadLandscapeLock>
       )}
 
       {game.phase === 'turnResults' && game.guesserName !== null && (
-        <ForeheadPortraitLock>
+        <ForeheadLandscapeLock>
           <ForeheadTurnResultsScreen
             playerName={game.guesserName}
             turn={game.turn}
@@ -187,7 +187,7 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
             onContinue={handleTurnContinue}
             onEndGame={handleEndGame}
           />
-        </ForeheadPortraitLock>
+        </ForeheadLandscapeLock>
       )}
 
       {game.phase === 'results' && (

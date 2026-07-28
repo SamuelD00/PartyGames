@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { requestTiltPermission, type TiltPermission } from '../utils/tilt';
-import { lockPortrait } from '../utils/orientationLock';
+import { lockLandscape } from '../utils/orientationLock';
 import './RevealScreen.css';
 import './ForeheadReadyScreen.css';
 
@@ -18,7 +18,7 @@ export function ForeheadReadyScreen({ playerName, turn, onStart, onEndGame }: Fo
 
   const handleStart = async () => {
     setRequesting(true);
-    void lockPortrait();
+    void lockLandscape();
     const permission = await requestTiltPermission();
     onStart(permission);
   };
