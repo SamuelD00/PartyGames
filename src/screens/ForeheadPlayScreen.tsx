@@ -50,7 +50,7 @@ export function ForeheadPlayScreen({
     return () => clearInterval(interval);
   }, [timerSeconds]);
 
-  const { active: tiltActive, debugDelta } = useForeheadTilt(tiltPermission, onCorrect, onSkip);
+  const { active: tiltActive, debugDelta, source: tiltSource } = useForeheadTilt(tiltPermission, onCorrect, onSkip);
 
   return (
     <div className="screen discussion-screen forehead-play-screen">
@@ -78,7 +78,11 @@ export function ForeheadPlayScreen({
             ? t('foreheadPlay.deniedHint')
             : t('foreheadPlay.buttonHint')}
         {tiltActive && debugDelta !== null && (
-          <span className="forehead-tilt-debug"> ({debugDelta > 0 ? '+' : ''}{debugDelta}°)</span>
+          <span className="forehead-tilt-debug">
+            {' '}
+            ({debugDelta > 0 ? '+' : ''}
+            {debugDelta}°{tiltSource === 'motion' ? ' · accel' : ''})
+          </span>
         )}
       </div>
 
