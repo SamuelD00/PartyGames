@@ -1,8 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TiltPermission } from '../utils/tilt';
 
-const TILT_THRESHOLD_DEG = 28;
-const REARM_ZONE_DEG = 12;
+const TILT_THRESHOLD_DEG = 22;
+const REARM_ZONE_DEG = 10;
+
+function getScreenAngle(): number {
+  if (typeof screen !== 'undefined' && screen.orientation && typeof screen.orientation.angle === 'number') {
+    return screen.orientation.angle;
+  }
+  // Legacy iOS Safari fallback: window.orientation is -90/0/90/180.
+  const legacy = (window as unknown as { orientation?: number }).orientation;
+  if (typeof legacy === 'number') return (legacy + 360) % 360;
+  return 0;
+}
+
+// beta/gamma are reported relative to the screen's current rotation, not the phone's physical
+// "up". If the OS auto-rotates mid-turn (easy to trigger by accident with this exact gesture),
+// raw beta stops meaning "tilt forward/back" — this remaps whichever axis currently represents
+// that physical tilt back to a single consistent value.
+function getTiltValue(event: DeviceOrientationEvent, screenAngle: number): number | null {
+  const { beta, gamma } = event;
+  if (beta === null || gamma === null) return null;
+  switch (screenAngle) {
+    case 90:
+      return -gamma;
+    case 180:
+      return -beta;
+    case 270:
+      return gamma;
+    default:
+      return beta;
+  }
+}
 
 // Calibrates against whatever angle the phone happens to be at when the listener attaches
 // (i.e. resting on the player's forehead), then fires once the tilt strays far enough from
@@ -29,14 +58,20 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
     const baselineRef = { current: null as number | null };
     const armedRef = { current: true };
 
+    const recalibrate = () => {
+      baselineRef.current = null;
+      armedRef.current = true;
+    };
+
     const handleOrientation = (event: DeviceOrientationEvent) => {
-      if (event.beta === null) return;
+      const value = getTiltValue(event, getScreenAngle());
+      if (value === null) return;
       if (baselineRef.current === null) {
-        baselineRef.current = event.beta;
+        baselineRef.current = value;
         setActive(true);
         return;
       }
-      const delta = event.beta - baselineRef.current;
+      const delta = value - baselineRef.current;
 
       if (armedRef.current) {
         if (delta >= TILT_THRESHOLD_DEG) {
@@ -52,7 +87,18 @@ export function useForeheadTilt(permission: TiltPermission, onTiltUp: () => void
     };
 
     window.addEventListener('deviceorientation', handleOrientation);
-    return () => window.removeEventListener('deviceorientation', handleOrientation);
+    // If the OS rotates the screen mid-turn, beta/gamma jump even with the axis remap above
+    // (the compensation only corrects for orientation *at the time of each reading* — the
+    // reading right at the transition is unreliable). Recalibrating on rotation keeps a stuck
+    // orientation from permanently breaking tilt for the rest of the turn.
+    window.addEventListener('orientationchange', recalibrate);
+    screen.orientation?.addEventListener?.('change', recalibrate);
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener('orientationchange', recalibrate);
+      screen.orientation?.removeEventListener?.('change', recalibrate);
+    };
   }, [permission]);
 
   return { active };

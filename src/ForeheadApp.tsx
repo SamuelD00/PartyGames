@@ -4,6 +4,7 @@ import { useForeheadWordPool } from './hooks/useForeheadWordPool';
 import type { ForeheadSetup } from './types/forehead';
 import type { GameDescriptor } from './data/games';
 import type { TiltPermission } from './utils/tilt';
+import { unlockOrientation } from './utils/orientationLock';
 import { ForeheadSetupScreen } from './screens/ForeheadSetupScreen';
 import { ForeheadRouletteScreen } from './screens/ForeheadRouletteScreen';
 import { ForeheadReadyScreen } from './screens/ForeheadReadyScreen';
@@ -85,6 +86,7 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
   };
 
   const handleTurnContinue = () => {
+    unlockOrientation();
     if (game.turn >= game.turnCount) {
       dispatch({ type: 'CONTINUE_AFTER_TURN', next: null });
       return;
@@ -98,6 +100,7 @@ export function ForeheadApp({ games, activeGameId, onSwitchGame }: ForeheadAppPr
   };
 
   const handleEndGame = () => {
+    unlockOrientation();
     dispatch({ type: 'RESET_TO_SETUP' });
     setUsedWords([]);
     setTiltPermission('unsupported');

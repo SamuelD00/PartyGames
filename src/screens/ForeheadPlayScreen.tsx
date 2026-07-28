@@ -6,6 +6,7 @@ import { IconCheck, IconSkip } from '../components/icons';
 import './RevealScreen.css';
 import './DiscussionScreen.css';
 import './ForeheadPlayScreen.css';
+import './ForeheadPortraitLock.css';
 
 const URGENT_THRESHOLD = 10;
 
@@ -53,7 +54,7 @@ export function ForeheadPlayScreen({
   const { active: tiltActive } = useForeheadTilt(tiltPermission, onCorrect, onSkip);
 
   return (
-    <div className="screen discussion-screen forehead-play-screen">
+    <div className="screen discussion-screen forehead-play-screen forehead-lock-portrait">
       <div className="forehead-play-header">
         <h1 className="discussion-title">{t('forehead.turnLabel', { n: turn })}</h1>
         <span className="forehead-score-tag">{tp('foreheadPlay.correctCount', correctCount)}</span>

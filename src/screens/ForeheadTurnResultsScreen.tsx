@@ -2,6 +2,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 import { IconCheck, IconSkip } from '../components/icons';
 import './RevealScreen.css';
 import './ForeheadTurnResultsScreen.css';
+import './ForeheadPortraitLock.css';
 
 interface ForeheadTurnResultsScreenProps {
   playerName: string;
@@ -26,7 +27,7 @@ export function ForeheadTurnResultsScreen({
   const isLastTurn = turn >= turnCount;
 
   return (
-    <div className="screen reveal-screen">
+    <div className="screen reveal-screen forehead-lock-portrait">
       <p className="reveal-progress">{t('forehead.turnLabel', { n: turn })}</p>
 
       <div className="reveal-card card forehead-ready-card">
